@@ -1,6 +1,7 @@
 package br.com.fellipe.api.controllers;
 
 import br.com.fellipe.api.produto.AdicionarDadosProduto;
+import br.com.fellipe.api.produto.Categoria;
 import br.com.fellipe.api.produto.Produto;
 import br.com.fellipe.api.produto.services.ProdutoService;
 import jakarta.transaction.Transactional;
@@ -33,6 +34,11 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Produto>> listarPorId(@PathVariable Long id){
         return produtoService.listarPorId(id);
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public List<Produto> listarPorCategoria(@PathVariable Categoria categoria){
+        return produtoService.listarPorCategoria(categoria);
     }
 
 }

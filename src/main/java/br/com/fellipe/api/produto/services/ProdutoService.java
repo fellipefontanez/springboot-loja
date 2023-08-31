@@ -1,6 +1,7 @@
 package br.com.fellipe.api.produto.services;
 
 import br.com.fellipe.api.produto.AdicionarDadosProduto;
+import br.com.fellipe.api.produto.Categoria;
 import br.com.fellipe.api.produto.Produto;
 import br.com.fellipe.api.produto.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class ProdutoService {
         } else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public List<Produto> listarPorCategoria(Categoria categoria) {
+        return repository.findAllByCategoria(categoria);
     }
 }
