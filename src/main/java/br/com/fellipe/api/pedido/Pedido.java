@@ -3,7 +3,6 @@ package br.com.fellipe.api.pedido;
 import br.com.fellipe.api.cliente.Cliente;
 import br.com.fellipe.api.produto.Produto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,9 +22,15 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "pedido_produto",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
     private List<Produto> produtos = new ArrayList<Produto>();
 
     @ManyToOne
     private Cliente cliente;
+
 }
