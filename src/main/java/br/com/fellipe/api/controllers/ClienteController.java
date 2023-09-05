@@ -27,4 +27,5 @@ public class ClienteController {
     public List<Cliente> listar(){
         return repository.findAll().stream().toList();
     }
+
 }

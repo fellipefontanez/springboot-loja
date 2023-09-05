@@ -9,9 +9,11 @@ import br.com.fellipe.api.produto.Produto;
 import br.com.fellipe.api.produto.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("pedido")
@@ -39,6 +41,13 @@ public class PedidoController {
         repository.save(new Pedido(null, produtos, cliente));
     }
 
-
+    @GetMapping("/listar-por-cliente/{id}")
+    public ResponseEntity<List<Pedido>> listarPorCliente(@PathVariable Long id){
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        if(cliente.isPresent()){
+            return ResponseEntity.ok(repository.findAllByCliente(cliente));
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
